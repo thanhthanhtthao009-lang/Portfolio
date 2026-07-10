@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Portfolio Tương Lai | E-Commerce & Cyborg OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-green: #00ff66;
+            --bg-dark: #030308;
+            --glass-bg: rgba(6, 6, 12, 0.85);
+            --matrix-glow: rgba(0, 243, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: crosshair;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Scanline hiệu ứng màn hình tương lai */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Thanh điều hướng */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo::before {
+            content: '';
+            display: inline-block;
+            width: 12px; height: 12px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: blink 1.5s infinite;
+        }
+
+        .nav-links a {
+            color: #cad9e0;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        /* Nút bấm */
+        .btn {
+            padding: 12px 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid var(--neon-cyan);
+            box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            clip-path: polygon(10% 0, 100% 0, 100% 75%, 90% 100%, 0 100%, 0 25%);
+        }
+
+        .btn:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-cyan);
+            font-weight: 900;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 120px 10% 60px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Vạch kẻ phân cách các section */
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.3), transparent);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 50px;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            position: relative;
+            display: inline-block;
+            align-self: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 2px;
+            background: var(--neon-purple);
+            margin: 10px auto 0;
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        /* KHU VỰC HERO */
+        .hero {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero-content h3 {
+            color: var(--neon-purple);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px var(--neon-purple);
+            display: inline-block;
+            border: 1px solid var(--neon-purple);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #fff, var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #a4b3be;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        /* HIỆU ỨNG CYBORG 8D */
+        .hologram-viewport {
+            position: relative;
+            width: 380px;
+            height: 480px;
+            perspective: 1200px;
+            z-index: 5;
+        }
+
+        .hologram-space {
+            width: 100%; height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+        }
+
+        .hud-bracket {
+            position: absolute;
+            top: -15px; left: -15px; right: -15px; bottom: -15px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            pointer-events: none;
+            transform: translateZ(30px);
+        }
+        .hud-bracket::before, .hud-bracket::after {
+            content: '';
+            position: absolute;
+            width: 25px; height: 25px;
+            border-color: var(--neon-cyan);
+            border-style: solid;
+        }
+        .hud-bracket::before { top: 0; left: 0; border-width: 3px 0 0 3px; }
+        .hud-bracket::after { bottom: 0; right: 0; border-width: 0 3px 3px 0; }
+
+        .hologram-radar {
+            position: absolute;
+            top: 10%; left: -10%;
+            width: 120%; height: 80%;
+            border: 2px dashed rgba(0, 243, 255, 0.25);
+            border-radius: 50%;
+            transform: translateZ(-40px) rotateX(20deg);
+            animation: radarSpin 25s linear infinite;
+        }
+
+        .cyborg-screen {
+            width: 100%; height: 100%;
+            background: rgba(5, 15, 25, 0.6);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.25);
+            transform: translateZ(0px);
+            position: relative;
+        }
+
+        .cyborg-img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            filter: saturate(1.1) contrast(1.1) hue-rotate(-5deg);
+        }
+
+        .cyborg-grid-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(var(--neon-cyan) 1px, transparent 0);
+            background-size: 8px 8px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .laser-scanner {
+            position: absolute;
+            left: 0; width: 100%; height: 4px;
+            background: linear-gradient(180deg, transparent, var(--neon-cyan));
+            box-shadow: 0 0 15px var(--neon-cyan);
+            animation: laserScan 4s ease-in-out infinite alternate;
+            transform: translateZ(50px);
+        }
+
+        .hud-data-widget {
+            position: absolute;
+            top: 40px; right: -60px;
+            background: rgba(0,0,0,0.8);
+            border-left: 3px solid var(--neon-purple);
+            padding: 10px 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: #0ff;
+            transform: translateZ(60px);
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            line-height: 1.5;
+        }
+
+        /* LỊCH SỬ VẬN HÀNH */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 2px; height: 100%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            background: rgba(12, 12, 22, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            padding: 25px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--neon-cyan);
+            transform: translateX(10px);
+            box-shadow: -5px 0 20px rgba(0, 243, 255, 0.1);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 30px; left: -36px;
+            width: 14px; height: 14px;
+            background: var(--bg-dark);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            z-index: 2;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background: var(--neon-cyan);
+        }
+
+        .timeline-date {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-purple);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .timeline-item h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            color: #8892b0;
+            margin-bottom: 15px;
+            text-transform: none;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .timeline-item p {
+            color: #a4b3be;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        /* GRID CHUNG */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(12, 12, 22, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--neon-purple);
+        }
+
+        .card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .card h3 {
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            font-size: 1.05rem;
+            color: #b3c2cb;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card ul {
+            list-style: none;
+            color: #b3c2cb;
+        }
+
+        .card ul li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        /* TECH STACK */
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .tech-badge {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 4px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .tech-badge:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* LIÊN HỆ & FOOTER */
+        .contact-box {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto;
+            background: rgba(0, 243, 255, 0.03);
+            padding: 50px;
+            border: 1px dashed rgba(0, 243, 255, 0.4);
+            border-radius: 12px;
+            box-shadow: inset 0 0 30px rgba(0, 243, 255, 0.05);
+        }
+
+        .contact-box p {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            color: #c4d0d8;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: #555;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ROBOT AI TRACKING */
+        .robot-container {
+            position: fixed;
+            bottom: 40px; right: 40px;
+            width: 110px; height: 110px;
+            perspective: 800px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .robot-head {
+            width: 100%; height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            background: radial-gradient(circle at center, #1b2030 0%, #030308 90%);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 30% 30% 45% 45%;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .robot-face {
+            width: 82%; height: 58%;
+            background: #000;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 8px;
+            box-shadow: inset 0 0 12px var(--neon-cyan);
+        }
+
+        .robot-eye {
+            width: 18px; height: 18px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon-cyan);
+            position: relative;
+        }
+
+        @keyframes laserScan {
+            0% { top: 0%; opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0.3; }
+        }
+
+        @keyframes radarSpin {
+            100% { transform: translateZ(-40px) rotateX(20deg) rotate(360deg); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH ĐIỀU HƯỚNG ĐÃ TỐI ƯU LIÊN KẾT -->
+    <nav>
+        <div class="logo">THAO_PORTFOLIO_V2026</div>
+        <div class="nav-links">
+            <a href="#hero">TỔNG QUAN</a>
+            <a href="#experience">HÀNH TRÌNH</a>
+            <a href="#skills">KỸ NĂNG</a>
+            <a href="#development">PHÁT TRIỂN</a>
+            <a href="#projects">DỰ ÁN NỔI BẬT</a>
+            <a href="#education">HỌC VẤN</a>
+            <a href="#contact">LIÊN HỆ</a>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO & CYBORG -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h3> PROJECT: AI APPLICATION IN E-COMMERCE</h3>
+            <h1> Hồ sơ sinh viên</h1>
+            <p>> <strong>Vai trò:</strong> Sinh viên nghiên cứu & Phát triển AI</p>
+            <p>Là sinh viên ngành Thương mại điện tử trong quá trình học tập, tôi đã tham gia các dự án nghiên cứu thị trường, phân tích khách hàng, xây dựng kế hoạch kinh doanh và sáng tạo nội dung cho các nền tảng trực tuyến. Nghiên cứu và ứng dụng các thuật toán AI vào tối ưu hóa vận hành Thương mại điện tử. Tập trung phân tích dữ liệu hành vi người dùng, xây dựng mô hình dự báo và thiết lập hệ thống tự động hóa nhằm nâng cao trải nghiệm mua sắm và tối đa hóa hiệu suất chuyển đổi.</p>
+            <div style="display: flex; gap: 15px;">
+                <a href="#experience" class="btn">XEM HỒ SƠ</a>
+                <a href="#contact" class="btn" style="background: transparent; border-color: var(--neon-purple); color: var(--neon-purple); box-shadow: inset 0 0 10px rgba(188, 19, 254, 0.2);">LIÊN HỆ</a>
+            </div>
+        </div>
+
+        <div class="hologram-viewport" id="holo-viewport">
+            <div class="hologram-space" id="holo-space">
+                <div class="hologram-radar"></div>
+                <div class="hud-bracket"></div>
+                <div class="cyborg-screen">
+                    <img src="../imge.html/anh-cv.jpg" alt="Ảnh chân dung" class="cyborg-img" id="cyborg-target-pic">
+                    <div class="cyborg-grid-overlay"></div>
+                    <div class="laser-scanner"></div>
+                </div>
+                <div class="hud-data-widget">
+                    NAME: Phạm Thanh Thảo<br>
+                    ROLE: E-commerce student<br>
+                    STATUS: ONLINE<br>
+                    SKILL LVL: 95%
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: KINH NGHIỆM LÀM VIỆC -->
+    <section id="experience">
+        <h2 class="section-title">HÀNH TRÌNH HỌC TẬP & DỰ ÁN</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-date">2024 - 2026</span>
+                <h3>SINH VIÊN THỰC HIỆN E-COMMERCE & DIGITAL MARKETING</h3>
+                <h4>Xây dựng kế hoạch digital marketing và thiết kế hệ thống nhận diện thương hiệu - Trà sen Đồng Tháp RENKA</h4>
+                <p>- Điều phối và tối ưu hóa hệ thống gian hàng trên Shopee, TikTok Shop.<br>
+                   - Đăng tải và cập nhật thông tin sản phẩm, hình ảnh và nội dung truyền thông.<br>
+                   - Tham gia xây dựng kế hoạch Digital Marketing phù hợp với mục tiêu của thương hiệu.<br>
+                   - Hỗ trợ thiết kế hệ thống nhận diện thương hiệu, bao gồm logo, màu sắc, font chữ và các ấn phẩm truyền thông.<br>
+                   - Đề xuất ý tưởng thiết kế bao bì sản phẩm và hình ảnh nhận diện trên các nền tảng số.<br>
+                   - Tham gia xây dựng kế hoạch quảng bá thương hiệu và tăng độ nhận diện trên môi trường trực tuyến. </p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-date">2024 - 2026</span>
+                <h3>SINH VIÊN THỰC HIỆN E-COMMERCE & DIGITAL MARKETING</h3>
+                <h4>Quản lý dự án thương mại điện tử - Shop quà tặng Ryna</h4>
+                <p> - Tạo và quản lý Fanpage, đăng tải nội dung và hình ảnh sản phẩm.<br>
+                    - Xây dựng kế hoạch Content Marketing trên Facebook và TikTok.<br>
+                    - Đăng và tối ưu thông tin sản phẩm trên các sàn thương mại điện tử.<br>
+                    - Phối hợp xây dựng website bán hàng và tối ưu SEO cơ bản.<br>
+                    - Lập kế hoạch tài chính, dự toán chi phí, doanh thu, lợi nhuận và thời gian hoàn vốn.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-date">2026</span>
+                <h3>SINH VIÊN THỰC HÀNH ỨNG DỤNG AI VÀO THƯƠNG MẠI ĐIỆN TỬ</h3>
+                <h4>TẠO HADOOP & VIDEO AI</h4>
+                <p>- Tạo và lập trình hadoop trong ứng dụng VMware Workstation Pro<br>
+                   - Ứng dụng AI để tạo các video, ảnh nhằm tăng độ nhận diện của thương hiệu, Landing page.<br>
+                   - Dùng Google Flow AI để tạo video bán hành, storytelling, viral </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: NĂNG LỰC & CÔNG CỤ -->
+    <section id="skills">
+        <h2 class="section-title">KỸ NĂNG & THỰC HÀNH</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Quản lý Fanpage, Đăng sản phẩm trên Shopee</h3>
+                <p> Thành thạo quy trình thiết lập và đăng tải sản phẩm trên Shopee chuẩn SEO. Nắm vững kỹ thuật tối ưu gian hàng, quản lý đơn hàng và xử lý vận hành để đảm bảo trải nghiệm khách hàng tối ưu.</p>
+            </div>
+            <div class="card">
+                <h3>Digital Marketing cơ bản & Chăm sóc khách hàng</h3>
+                <p>Có kinh nghiệm triển khai Digital Marketing cơ bản, quản trị nội dung Fanpage, thiết kế ấn phẩm truyền thông và trực tiếp chăm sóc khách hàng nhằm xây dựng lòng tin, duy trì sự gắn kết và tối ưu hóa tỷ lệ chuyển đổi cho các dự án thực tế.</p>
+            </div>
+            <div class="card">
+                <h3>ỨNG DỤNG AI TRONG TỐI ƯU HÓA E-COMMERCE</h3>
+                <p>Tận dụng các công cụ AI cơ bản để tối ưu hóa quy trình làm việc trong Thương mại điện tử. Ứng dụng AI trong việc sáng tạo nội dung Fanpage, hỗ trợ tư vấn và chăm sóc khách hàng nhanh chóng, cũng như phân tích dữ liệu thị trường để đưa ra các đề xuất cải thiện hiệu suất kinh doanh cho dự án."</p>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; margin-top: 60px; color: var(--neon-purple); font-family: 'Orbitron', sans-serif;">>> CHUỖI CÔNG CỤ TÍCH HỢP <<</h3>
+        <div class="tech-grid">
+            <div class="tech-badge">Shopee / TikTok</div>
+            <div class="tech-badge">TikTok Shop & Ads</div>
+            <div class="tech-badge">Google Flow AI</div>
+            <div class="tech-badge">Facebook Business Manager & Ads</div>
+            <div class="tech-badge">Adobe Photoshop </div>
+            <div class="tech-badge">Google / Word </div>
+            <div class="tech-badge">ChatGPT / Gemini</div>
+            <div class="tech-badge">Facebook / Zalo / Instagram</div>
+            <div class="tech-badge">Canva / Capcut / Honor AI / Wink</div>
+        </div>
+    </section>
+
+    <!-- SECTION BỔ SUNG: ĐIỂM MẠNH, ĐIỂM CẢI THIỆN & ĐỊNH HƯỚNG NGHỀ NGHIỆP -->
+    <section id="development">
+        <h2 class="section-title">PHÁT TRIỂN BẢN THÂN</h2>
+        <div class="grid-container">
+            <div class="card" style="border-color: var(--neon-cyan);">
+                <h3>ĐIỂM MẠNH CỐT LÕI</h3>
+                <ul>
+                    <li><strong>• Khả năng ứng dụng AI tốt:</strong> Nhạy bén trong việc áp dụng các công cụ AI như ChatGPT, Gemini, và Google Flow AI để tối ưu hóa thời gian sản xuất nội dung hình ảnh/video marketing.</li>
+                    <li><strong>• Tư duy thực chiến đa kênh:</strong> Không chỉ lý thuyết, bản thân đã trực tiếp vận hành hệ thống gian hàng trên Shopee, TikTok Shop và quản trị nội dung Fanpage thực tế.</li>
+                    <li><strong>• Thẩm mỹ & Thiết kế bao bì:</strong> Có khả năng tự thiết kế, lên ý tưởng nhận diện thương hiệu và đổi mới bao bì sản phẩm bắt kịp xu hướng của người trẻ.</li>
+                </ul>
+            </div>
+            <div class="card" style="border-color: var(--neon-purple);">
+                <h3>ĐIỂM CẦN CẢI THIỆN</h3>
+                <ul>
+                    <li><strong>• Kỹ năng Phân tích Dữ liệu lớn:</strong> Việc lập trình Hadoop trên hệ thống VMware hiện tại mới ở mức cơ bản, đang cần thực hành nhiều hơn trên các tập dữ liệu thực tế lớn của doanh nghiệp.</li>
+                    <li><strong>• Tiếng Anh chuyên ngành:</strong> Hiện có bằng tiếng Anh A2, cần tiếp tục nâng cấp lên các chứng chỉ cao hơn để có thể nghiên cứu sâu tài liệu thuật toán nước ngoài.</li>
+                    <li><strong>• Quản trị ngân sách quảng cáo:</strong> Cần thêm cơ hội cọ xát thực tế với các chiến dịch Paid Ads (Facebook/TikTok) có ngân sách lớn để tối ưu chỉ số ROI.</li>
+                </ul>
+            </div>
+            <div class="card" style="border-color: var(--neon-green);">
+                <h3>ĐỊNH HƯỚNG NGHỀ NGHIỆP</h3>
+                <ul>
+                    <li><strong>• Ngắn hạn (1-2 năm tới):</strong> Trở thành một Chuyên viên vận hành sàn TMĐT (E-commerce Operations) hoặc Digital Marketing Coordinator. Tập trung giải pháp tự động hóa bằng AI để tối ưu chi phí vận hành gian hàng.</li>
+                    <li><strong>• Dài hạn (3-5 năm tới):</strong> Hướng tới vị trí <i>E-commerce Growth Specialist</i> hoặc <i>Digital Brand Manager</i>. Kết hợp nhuần nhuyễn tư duy Data-driven (Phân tích dữ liệu lớn) với sáng tạo Branding để thúc đẩy doanh thu số toàn diện.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: LƯU TRỮ DỰ ÁN -->
+    <section id="projects">
+        <h2 class="section-title">DỰ ÁN NỔI BẬT</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h3>CHIẾN DỊCH DIGITAL MARKETING (TRÀ SEN ĐỒNG THÁP RENKA)</h3>
+                <p><strong>Mục tiêu:</strong> Xây dựng kế hoạch tiếp cận và tăng độ nhận diện cho sản phẩm Trà sen nguyên bông trên các kênh số.<br><strong>Thực thi:</strong> Nghiên cứu hành vi người dùng, triển khai nội dung đa kênh (Facebook/Instagram) và tối ưu hóa từ khóa để tăng hiệu quả tiếp cận khách hàng.</p>
+                <a href="#" class="btn" style="align-self: flex-start; padding: 8px 15px; font-size: 0.8rem;">XEM CHI TIẾT</a>
+            </div>
+            <div class="card">
+                <h3>TÁI ĐỊNH VỊ THƯƠNG HIỆU (BÁNH CỐM THẾ GIA)</h3>
+                <p><strong>Mục tiêu:</strong> Nâng cấp hình ảnh sản phẩm truyền thống để phù hợp và hiện đại hóa hình ảnh thương hiệu truyền thống để phù hợp với thị hiếu khách hàng trẻ (Gen Z)..<br><strong>Thực thi:</strong> Thiết kế nhận diện thương hiệu, bao bì mới và sáng tạo phong cách hình ảnh tối giản, hiện đại để làm mới sản phẩm trên thị trường.</p>
+                <a href="#" class="btn" style="align-self: flex-start; padding: 8px 15px; font-size: 0.8rem;">XEM HỒ SƠ</a>
+            </div>
+            <div class="card">
+                <h3>TỐI ƯU HÓA VẬN HÀNH E-COMMERCE</h3>
+                <p><strong>Mục tiêu:</strong> Nâng cao hiệu suất gian hàng và trải nghiệm mua sắm trên sàn Thương mại điện tử.<br><strong>Thực thi:</strong> Thiết lập quy trình vận hành, đăng tải sản phẩm chuẩn SEO, quản lý đơn hàng và ứng dụng công cụ AI để tối ưu nội dung, thúc đẩy tỷ lệ chuyển đổi.</p>
+                <a href="#" class="btn" style="align-self: flex-start; padding: 8px 15px; font-size: 0.8rem;">XEM DỮ LIỆU</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: HỌC VẤN & CHỨNG CHỈ -->
+    <section id="education">
+        <h2 class="section-title">HỌC VẤN & CHỨNG CHỈ</h2>
+        <div class="grid-container">
+            <div class="card" style="border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0,255,102,0.1);">
+                <h3 style="color: var(--neon-green);">SINH VIÊN THƯƠNG MẠI ĐIỆN TỬ</h3>
+                <p style="color: #fff; font-weight: bold; margin-bottom: 5px;">Trường: Cao Đẳng Công Thương TP.HCM (HITC).</p>
+                <p>Chuyên ngành: Thương mại điện tử<br>Đồ án: Đang thực hiện các dự án thực tế về branding cho doanh nghiệp (như Bánh cốm Thế Gia, Trà sen Đồng Tháp Renka, Shop quà tặng Ryna) và phát triển các kỹ năng vận hành sàn TMĐT.</p>
+            </div>
+            <div class="card" style="border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0,255,102,0.1);">
+                <h3 style="color: var(--neon-green);">CHỨNG CHỈ & ĐÀO TẠO</h3>
+                <p style="color: #fff; font-weight: bold; margin-bottom: 5px;">Cấp bởi Trường Cao Đẳng Công Thương TP.HCM (HITC).</p>
+                <p>Bằng tin học cơ bản bách khoa</p>
+                <p>Bằng tiếng anh A2</p>
+            </div>
+            <div class="card" style="border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0,255,102,0.1);">
+                <h3 style="color: var(--neon-green);">CHUYÊN MÔN THỰC CHIẾN</h3>
+                <p style="color: #fff; font-weight: bold; margin-bottom: 5px;">Marketing & Vận hành Thương mại điện tử</p>
+                <p>Tập trung vào các kỹ năng thực tế: Quản trị nội dung Fanpage, thiết kế ấn phẩm truyền thông, và vận hành gian hàng Shopee chuẩn SEO. Khả năng ứng dụng AI vào quy trình sáng tạo và tối ưu hóa hiệu suất kinh doanh.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: CONTACT -->
+    <section id="contact">
+        <h2 class="section-title">KẾT NỐI HỢP TÁC</h2>
+        <div class="contact-box">
+            <p>Mình đang tìm kiếm các cơ hội thực tập, cộng tác dự án hoặc các vị trí thực tập sinh mảng Marketing/TMĐT. Nếu bạn có cơ hội thú vị hoặc muốn cùng trao đổi về các giải pháp kinh doanh số, hãy kết nối với mình qua các kênh dưới đây nhé!</p>
+            <a href="mailto:your-email@gmail.com" class="btn" style="margin-right: 15px;">GỬI EMAIL CHO THẢO</a>
+            <a href="#" class="btn" style="background: rgba(188, 19, 254, 0.1); border-color: var(--neon-purple); color: var(--neon-purple);">KẾT NỐI LINKEDIN</a>
+        </div>
+    </section>
+
+    <footer>
+        PORTFOLIO_V2.0 // PHÁT TRIỂN BỞI PHẠM THANH THẢO © 2026<br>
+        <span style="color: var(--neon-cyan); opacity: 0.6;">TỐI ƯU HÓA BỞI TƯ DUY E-COMMERCE SỐ</span>
+    </footer>
+
+    <!-- TRỢ LÝ ROBOT -->
+    <div class="robot-container">
+        <div class="robot-head" id="cyber-assistant">
+            <div class="robot-face">
+                <div class="robot-eye"></div>
+                <div class="robot-eye"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const viewport = document.getElementById('holo-viewport');
+        const space = document.getElementById('holo-space');
+        const assistant = document.getElementById('cyber-assistant');
+        const eyes = document.querySelectorAll('.robot-eye');
+
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            // Chuyển động 8D Hologram
+            if (viewport) {
+                const viewRect = viewport.getBoundingClientRect();
+                if (viewRect.top < window.innerHeight && viewRect.bottom > 0) {
+                    const viewCenterX = viewRect.left + viewRect.width / 2;
+                    const viewCenterY = viewRect.top + viewRect.height / 2;
+
+                    const rotateX = -(mouseY - viewCenterY) / 20;
+                    const rotateY = (mouseX - viewCenterX) / 20;
+
+                    const stableX = Math.max(-15, Math.min(15, rotateX));
+                    const stableY = Math.max(-20, Math.min(20, rotateY));
+
+                    space.style.transform = `rotateX(${stableX}deg) rotateY(${stableY}deg)`;
+                }
+            }
+
+            // Chuyển động Robot
+            const botRect = assistant.getBoundingClientRect();
+            const botCenterX = botRect.left + botRect.width / 2;
+            const botCenterY = botRect.top + botRect.height / 2;
+
+            const botRotateX = -(mouseY - botCenterY) / 25;
+            const botRotateY = (mouseX - botCenterX) / 25;
+
+            assistant.style.transform = `rotateX(${botRotateX}deg) rotateY(${botRotateY}deg)`;
+
+            eyes.forEach(eye => {
+                const eyeMoveX = (mouseX - botCenterX) / 30;
+                const eyeMoveY = (mouseY - botCenterY) / 30;
+                const limX = Math.max(-8, Math.min(8, eyeMoveX));
+                const limY = Math.max(-5, Math.min(5, eyeMoveY));
+                eye.style.transform = `translate(${limX}px, ${limY}px)`;
+            });
+        });
+
+        document.addEventListener('mouseleave', () => {
+            if (space) space.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            assistant.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            eyes.forEach(eye => eye.style.transform = `translate(0px, 0px)`);
+        });
+    </script>
+</body>
+</html>
